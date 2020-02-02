@@ -4,7 +4,7 @@
       <span class="font-semibold text-xl tracking-tight">Tailwind Smoothies</span>
     </router-link>
     <router-link :to="{ name : 'AddSmoothie' }" tag="a"
-      class="absolute right-0 mt-10 mr-16 inline-block text-sm p-2 leading-none rounded-full hover:border-transparent hover:text-teal-400 hover:bg-green-600 mt-4 bg-green-500"
+      class="absolute right-0 mt-10 mr-16 inline-block text-sm p-2 leading-none rounded-full hover:border-transparent hover:text-teal-400 bg-green-500 hover:bg-green-600 mt-4"
     >
       <svg
         class="h-8 w-8 fill-current text-white"
