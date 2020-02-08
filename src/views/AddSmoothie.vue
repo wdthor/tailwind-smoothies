@@ -26,9 +26,29 @@
                             class="block text-blue-800 text-sm font-bold mb-2"
                             for="ingredient"
                         >Ingredient :</label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-blue-800 leading-tight focus:outline-none focus:shadow-outline"
-                         type="text" name="ingredient" id="ingredient" v-model="ingredients[index]">
+                        <div class="flex items-center">
+                            <input
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-blue-800 leading-tight focus:outline-none focus:shadow-outline"
+                                type="text"
+                                name="ingredient"
+                                id="ingredient"
+                                v-model="ingredients[index]"
+                                @keydown.enter.prevent
+                                @keypress.enter.prevent
+                                @keyup.enter.prevent
+                            />
+                            <svg
+                                @click="removeIngredient(ingredient)"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-10 w-10 cursor-pointer ml-2 fill-current text-red-500"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    class="heroicon-ui"
+                                    d="M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z"
+                                />
+                            </svg>
+                        </div>
                     </div>
                     <label
                         class="block text-blue-800 text-sm font-bold mb-2"
@@ -83,6 +103,9 @@
 </template>
 
 <script>
+import db from "@/firebase/init";
+import slugify from "slugify";
+
 export default {
     name: "AddSmoothie",
     data() {
@@ -90,13 +113,38 @@ export default {
             smoothieName: null,
             ingredients: [],
             ingredient: null,
-            warningMessage: null
+            warningMessage: null,
+            slug: null
         };
     },
     methods: {
         addSmoothie() {
-            console.log(this.smoothieName);
-            console.log(this.ingredients);
+            if (this.smoothieName && this.ingredients.length > 0) {
+                this.warningMessage = null;
+                // Create a slug
+                this.slug = slugify(this.smoothieName, {
+                    replacement: "-",
+                    remove: /[$*_+~.()'"!\-:@]/g,
+                    lower: true
+                });
+                console.log(this.slug);
+                db.collection("smoothies")
+                    .add({
+                        title: this.smoothieName,
+                        ingredients: this.ingredients,
+                        slug: this.slug
+                    })
+                    .then(() => {
+                        this.$router.push({ name: "Home" });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            } else if (!this.smoothieName) {
+                this.warningMessage = "Smoothie name is required";
+            } else {
+                this.warningMessage = "Add at least one ingredient";
+            }
         },
         addIngredient() {
             /*  Check if ingredient input is not empty
@@ -112,6 +160,11 @@ export default {
             } else {
                 this.warningMessage = "Enter a value to add an ingredient";
             }
+        },
+        removeIngredient(ingredientSelected) {
+            this.ingredients = this.ingredients.filter(ingredient => {
+                return ingredient != ingredientSelected;
+            });
         }
     }
 };
