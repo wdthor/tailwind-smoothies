@@ -1,6 +1,10 @@
 module.exports = {
   theme: {
-    extend: {}
+    extend: {
+      spacing: {
+        '5': '1.25rem'
+      }
+    }
   },
   variants: {},
   plugins: []
