@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center">
+    <section class="flex flex-col items-center">
         <h1 class="text-3xl mb-2 text-blue-800">Add new smoothie recipe</h1>
         <div class="w-full max-w-md">
             <form
@@ -99,7 +99,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>

@@ -3,9 +3,9 @@
         <div
             v-for="smoothie in smoothies"
             :key="smoothie.id"
-            class="w-full relative sm:w-1/2 md:w-1/3 lg:w-1/4 mb-4"
+            class="w-full relative sm:w-1/2 md:w-1/3 lg:w-1/4 my-4"
         >
-            <div
+            <section
                 class="card relative flex flex-col items-center bg-gray-400 py-10 px-4 rounded-lg shadow-xl mx-4"
             >
                 <svg
@@ -44,7 +44,7 @@
                         </svg>
                     </div>
                 </router-link>
-            </div>
+            </section>
         </div>
     </div>
 </template>
