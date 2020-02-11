@@ -6,7 +6,7 @@
             class="w-full relative sm:w-1/2 md:w-1/3 lg:w-1/4 my-4"
         >
             <section
-                class="card relative flex flex-col items-center bg-gray-400 py-10 px-4 rounded-lg shadow-xl mx-4"
+                class="card relative flex flex-col h-full bg-gray-400 py-10 px-4 rounded-lg shadow-xl mx-4"
             >
                 <svg
                     @click="deleteSmoothie(smoothie.id)"
@@ -19,10 +19,10 @@
                         d="M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z"
                     />
                 </svg>
-                <p class="text-blue-800 text-2xl font-semibold">{{ smoothie.title }}</p>
+                <p class="text-blue-800 text-2xl text-center font-semibold">{{ smoothie.title }}</p>
                 <ul class="flex flex-row justify-start flex-wrap mt-4">
                     <li
-                        class="inline-block rounded-full bg-gray-200 px-2 py-1 m-1"
+                        class=" rounded-full bg-gray-200 px-2 py-1 m-1"
                         v-for="(ingredient, index) in smoothie.ingredients"
                         :key="index"
                     >{{ ingredient }}</li>
@@ -52,7 +52,7 @@
 <script>
 import db from "@/firebase/init";
 export default {
-    name: "home",
+    name: "Home",
     data() {
         return {
             smoothies: []
