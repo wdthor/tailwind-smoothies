@@ -17,7 +17,7 @@
                         type="text"
                         placeholder="Smoothie Name"
                         required
-                        v-model="smoothieName"
+                        v-model="title"
                     />
                 </div>
                 <div class="mb-6">
@@ -110,7 +110,7 @@ export default {
     name: "AddSmoothie",
     data() {
         return {
-            smoothieName: null,
+            title: null,
             ingredients: [],
             ingredient: null,
             warningMessage: null,
@@ -119,10 +119,10 @@ export default {
     },
     methods: {
         addSmoothie() {
-            if (this.smoothieName && this.ingredients.length > 0) {
+            if (this.title && this.ingredients.length > 0) {
                 this.warningMessage = null;
-                // Create a slug
-                this.slug = slugify(this.smoothieName, {
+                // Create a slug from the smoothie title
+                this.slug = slugify(this.title, {
                     replacement: "-",
                     remove: /[$*_+~.()'"!\-:@]/g,
                     lower: true
@@ -130,7 +130,7 @@ export default {
                 console.log(this.slug);
                 db.collection("smoothies")
                     .add({
-                        title: this.smoothieName,
+                        title: this.title,
                         ingredients: this.ingredients,
                         slug: this.slug
                     })
@@ -140,7 +140,7 @@ export default {
                     .catch(err => {
                         console.log(err);
                     });
-            } else if (!this.smoothieName) {
+            } else if (!this.title) {
                 this.warningMessage = "Smoothie name is required";
             } else {
                 this.warningMessage = "Add at least one ingredient";

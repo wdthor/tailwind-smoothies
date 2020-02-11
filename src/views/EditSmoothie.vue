@@ -124,15 +124,16 @@ export default {
     },
     methods: {
         editSmoothie() {
+            // Check all input are filled
             if (this.smoothie.title && this.smoothie.ingredients.length > 0) {
                 this.warningMessage = null;
-                // Create a slug
+                // Create a slug from the title
                 this.smoothie.slug = slugify(this.smoothie.title, {
                     replacement: "-",
                     remove: /[$*_+~.()'"!\-:@]/g,
                     lower: true
                 });
-                console.log(this.slug);
+                // get smoothie collection from Firebase and update the selected smoothie
                 db.collection("smoothies")
                     .doc(this.smoothie.id)
                     .update({
@@ -140,14 +141,17 @@ export default {
                         ingredients: this.smoothie.ingredients,
                         slug: this.smoothie.slug
                     })
+                    // If success, redirect to home
                     .then(() => {
                         this.$router.push({ name: "Home" });
                     })
                     .catch(err => {
                         console.log(err);
                     });
+            // if smoothie title is missing
             } else if (!this.smoothie.title) {
                 this.warningMessage = "Smoothie name is required";
+            // ingredient input is empty
             } else {
                 this.warningMessage = "Add at least one ingredient";
             }
@@ -168,6 +172,7 @@ export default {
             }
         },
         removeIngredient(ingredientSelected) {
+            // Keep ingredients different from the selected ingredient in param
             this.smoothie.ingredients = this.smoothie.ingredients.filter(
                 ingredient => {
                     return ingredient != ingredientSelected;
