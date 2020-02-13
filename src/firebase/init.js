@@ -7,15 +7,15 @@ import * as firebase from "firebase/app";
 import "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCoy_1w_kzmSbJr5-BdUKQlMSJfgy2oHsI",
-    authDomain: "udemy-ninja-smoothies-7da11.firebaseapp.com",
-    databaseURL: "https://udemy-ninja-smoothies-7da11.firebaseio.com",
-    projectId: "udemy-ninja-smoothies-7da11",
-    storageBucket: "udemy-ninja-smoothies-7da11.appspot.com",
-    messagingSenderId: "370548450430",
-    appId: "1:370548450430:web:0749479adacec72c"
-};
-
+    apiKey: "AIzaSyBg51LnG3K3g3NnTBtqlCqpt1DQM2lgETY",
+    authDomain: "vue-tailwind-smoothies.firebaseapp.com",
+    databaseURL: "https://vue-tailwind-smoothies.firebaseio.com",
+    projectId: "vue-tailwind-smoothies",
+    storageBucket: "vue-tailwind-smoothies.appspot.com",
+    messagingSenderId: "694157555423",
+    appId: "1:694157555423:web:cc939a819f5743c8771b6a"
+  };
+  // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 export default firebaseApp.firestore()
