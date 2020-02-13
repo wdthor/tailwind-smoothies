@@ -146,7 +146,7 @@ export default {
                         this.$router.push({ name: "Home" });
                     })
                     .catch(err => {
-                        console.log(err);
+                        throw err;
                     });
             // if smoothie title is missing
             } else if (!this.smoothie.title) {

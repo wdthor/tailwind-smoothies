@@ -127,7 +127,6 @@ export default {
                     remove: /[$*_+~.()'"!\-:@]/g,
                     lower: true
                 });
-                console.log(this.slug);
                 db.collection("smoothies")
                     .add({
                         title: this.title,
@@ -138,7 +137,7 @@ export default {
                         this.$router.push({ name: "Home" });
                     })
                     .catch(err => {
-                        console.log(err);
+                        throw err;
                     });
             } else if (!this.title) {
                 this.warningMessage = "Smoothie name is required";
