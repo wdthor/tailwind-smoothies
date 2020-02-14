@@ -1,8 +1,7 @@
 <template>
     <section class="flex flex-col items-center" v-if="smoothie">
         <h1 class="text-3xl mb-2 text-blue-800">
-            Edit
-            <span class="font-bold">"{{ smoothie.title }}"</span> smoothie
+            Edit <span class="font-bold">"{{ smoothie.title }}"</span> smoothie
         </h1>
         <div class="w-full max-w-md">
             <form

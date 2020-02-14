@@ -21,7 +21,7 @@
                     />
                 </div>
                 <div class="mb-6">
-                    <div class="mb-4" v-for="(ingredient, index) in ingredients" :key="index">
+                    <div class="mb-4" v-for="(ingredient, index) in smoothie.ingredients" :key="index">
                         <label
                             class="block text-blue-800 text-sm font-bold mb-2"
                             for="ingredient"
@@ -32,7 +32,7 @@
                                 type="text"
                                 name="ingredient"
                                 id="ingredient"
-                                v-model="ingredients[index]"
+                                v-model="smoothie.ingredients[index]"
                                 @keydown.enter.prevent
                                 @keypress.enter.prevent
                                 @keyup.enter.prevent
@@ -114,24 +114,30 @@ export default {
             ingredients: [],
             ingredient: null,
             warningMessage: null,
-            slug: null
+            slug: null,
+            smoothie: {
+                title: null,
+                ingredients: [],
+                slug: null,
+
+            }
         };
     },
     methods: {
         addSmoothie() {
-            if (this.title && this.ingredients.length > 0) {
+            if (this.smoothie.title && this.smoothie.ingredients.length > 0) {
                 this.warningMessage = null;
                 // Create a slug from the smoothie title
-                this.slug = slugify(this.title, {
+                this.smoothie.slug = slugify(this.smoothie.title, {
                     replacement: "-",
                     remove: /[$*_+~.()'"!\-:@]/g,
                     lower: true
                 });
                 db.collection("smoothies")
                     .add({
-                        title: this.title,
-                        ingredients: this.ingredients,
-                        slug: this.slug
+                        title: this.smoothie.title,
+                        ingredients: this.smoothie.ingredients,
+                        slug: this.smoothie.slug
                     })
                     .then(() => {
                         this.$router.push({ name: "Home" });
@@ -153,7 +159,7 @@ export default {
                     display warning message
             */
             if (this.ingredient) {
-                this.ingredients.push(this.ingredient);
+                this.smoothie.ingredients.push(this.ingredient);
                 this.ingredient = null;
                 this.warningMessage = null;
             } else {
@@ -161,7 +167,7 @@ export default {
             }
         },
         removeIngredient(ingredientSelected) {
-            this.ingredients = this.ingredients.filter(ingredient => {
+            this.smoothie.ingredients = this.smoothie.ingredients.filter(ingredient => {
                 return ingredient != ingredientSelected;
             });
         }
